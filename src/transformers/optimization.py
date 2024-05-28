@@ -530,6 +530,9 @@ def get_scheduler(
     if name == SchedulerType.REDUCE_ON_PLATEAU:
         return schedule_func(optimizer, **scheduler_specific_kwargs)
 
+    if name == SchedulerType.WARMUP_STABLE_DECAY:
+        schedule_func(optimizer, **scheduler_specific_kwargs)
+        
     # All other schedulers require `num_warmup_steps`
     if num_warmup_steps is None:
         raise ValueError(f"{name} requires `num_warmup_steps`, please provide that argument.")
